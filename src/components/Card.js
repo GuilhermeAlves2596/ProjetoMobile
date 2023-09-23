@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Card = (props) => {
@@ -7,18 +7,16 @@ const Card = (props) => {
     const icone = props.icone
 
     return (
-        <TouchableOpacity activeOpacity={0.6}>
-            <View style={estilos.viewCard}>
-                <View style={estilos.view}>
-                    <View>
-                        <Icon name={icone} size={58} color="#F9F9F9"/>
-                    </View>
-                    <View>
-                        <Text style={estilos.textCard}>{texto}</Text>
-                    </View>
+        <View style={estilos.viewCard}>
+            <View style={estilos.view}>
+                <View>
+                    <Icon name={icone} size={58} color="#F9F9F9" />
+                </View>
+                <View>
+                    <Text style={estilos.textCard}>{texto}</Text>
                 </View>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
@@ -35,7 +33,7 @@ const estilos = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: "#312464",
     },
-    view:{
+    view: {
         flexDirection: "column",
         alignItems: "center"
     }

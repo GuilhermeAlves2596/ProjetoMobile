@@ -2,13 +2,17 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Legenda from "../src/components/Legenda";
 
-const Relatorios = () => {
+const Relatorio = (props) => {
+
+  const back = () => {
+    props.navigation.goBack()
+  }
 
   return (
     <View style={estilos.viewBody}>
       <View style={estilos.viewHeader}>
         <View>
-        <TouchableOpacity activeOpacity={0.6}>
+        <TouchableOpacity activeOpacity={0.6} onPress={back}>
           <Icon name="arrow-left" size={45} color="#573FBA" />
         </TouchableOpacity>
         </View>
@@ -64,4 +68,4 @@ const estilos = StyleSheet.create({
 
 })
 
-export default Relatorios;
+export default Relatorio;

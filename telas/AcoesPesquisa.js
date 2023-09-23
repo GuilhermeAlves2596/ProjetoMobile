@@ -2,15 +2,28 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Card from "../src/components/Card";
 
-const AcoesPesquisa = () => {
+const AcoesPesquisa = (props) => {
+
+  const goToColeta = () => {
+    props.navigation.navigate("Coleta")
+  }
+
+  const goToRelatorio = () => {
+    props.navigation.navigate("Relatorio")
+  }
+
+  const goToModificar = () => {
+
+  }
+
 
   return (
     <View style={estilos.viewBody}>
       <View style={estilos.viewHeader}>
         <View>
-        <TouchableOpacity activeOpacity={0.6}>
-          <Icon name="arrow-left" size={45} color="#573FBA" />
-        </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.6}>
+            <Icon name="arrow-left" size={45} color="#573FBA" />
+          </TouchableOpacity>
         </View>
         <View>
           <Text style={estilos.textHeader}>Carnaval</Text>
@@ -19,15 +32,21 @@ const AcoesPesquisa = () => {
 
       <View style={estilos.viewCorpo}>
         <View style={estilos.viewCard}>
-          <View>
-            <Card texto="Modificar" icone="file-document-edit-outline"></Card>
-          </View>
-          <View>
-            <Card texto="Coletar Dados" icone="checkbox-multiple-outline"></Card>
-          </View>
-          <View>
-            <Card texto="Relatório" icone="chart-donut"></Card>
-          </View>
+          <TouchableOpacity activeOpacity={0.6} onPress={goToModificar}>
+            <View>
+              <Card texto="Modificar" icone="file-document-edit-outline"></Card>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.6} onPress={goToColeta}>
+            <View>
+              <Card texto="Coletar Dados" icone="checkbox-multiple-outline"></Card>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.6} onPress={goToRelatorio}>
+            <View>
+              <Card texto="Relatório" icone="chart-donut"></Card>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -46,7 +65,7 @@ const estilos = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 10
   },
-  viewCorpo:{
+  viewCorpo: {
     flex: 0.80,
     flexDirection: "column",
     justifyContent: "center"
@@ -57,7 +76,7 @@ const estilos = StyleSheet.create({
     fontSize: 40,
     paddingLeft: 25
   },
-  viewCard:{
+  viewCard: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly"

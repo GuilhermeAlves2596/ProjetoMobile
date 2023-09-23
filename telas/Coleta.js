@@ -1,11 +1,23 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Satisfacao from "../src/components/Satisfacao";
 
-const Coleta = () => {
+const Coleta = (props) => {
+
+  const back = () => {
+    props.navigation.goBack()
+  }
+
+  const goToAgradecimento = () => {
+    props.navigation.navigate("Agradecimento");
+  
+    setTimeout(() => {
+      props.navigation.goBack();
+    }, 3000); 
+  }
 
   return (
     <View style={estilos.viewBody}>
-      <TouchableOpacity style={estilos.botao} activeOpacity={0.2}>
+      <TouchableOpacity style={estilos.botao} activeOpacity={0.2} onPress={back}>
         <Text>      </Text>
       </TouchableOpacity>
 
@@ -16,21 +28,22 @@ const Coleta = () => {
       </View>
 
       <View style={estilos.iconesPesquisa}>
-        <View>
+        <TouchableOpacity onPress={goToAgradecimento}>
           <Satisfacao texto="Péssimo" icone="sentiment-very-dissatisfied" cor="#D71616" />
-        </View>
-        <View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={goToAgradecimento}>
           <Satisfacao texto="Ruim" icone="sentiment-dissatisfied" cor="#FF360A" />
-        </View>
-        <View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={goToAgradecimento}>
           <Satisfacao texto="Neutro" icone="sentiment-neutral" cor="#FFC632" />
-        </View>
-        <View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={goToAgradecimento}>
           <Satisfacao texto="Bom" icone="sentiment-satisfied-alt" cor="#37BD6D" />
-        </View>
-        <View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={goToAgradecimento}>
           <Satisfacao texto="Excelente" icone="sentiment-very-satisfied" cor="#25BC22" />
-        </View>
+        </TouchableOpacity>
+
       </View>
     </View>
   )

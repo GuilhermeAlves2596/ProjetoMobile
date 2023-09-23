@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Satisfacao = (props) => {
@@ -9,12 +9,10 @@ const Satisfacao = (props) => {
 
     return (
         <View style={{height: 180, width: 150}}>
-            <TouchableOpacity>
                 <View style={estilos.pesquisa}>
                     <Icon name={icone} size={60} color={cor}/>
                     <Text style={estilos.textLegenda}>{texto}</Text>
                 </View>
-            </TouchableOpacity>
         </View>
     )
 }
