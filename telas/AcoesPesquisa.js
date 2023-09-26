@@ -13,7 +13,7 @@ const AcoesPesquisa = (props) => {
   }
 
   const goToModificar = () => {
-
+    props.navigation.navigate("Drawer")
   }
 
 
