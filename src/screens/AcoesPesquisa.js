@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Card from "../src/components/Card";
+import Card from "../components/Card";
 
 const AcoesPesquisa = (props) => {
 

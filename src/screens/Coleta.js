@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Satisfacao from "../src/components/Satisfacao";
+import Satisfacao from "../components/Satisfacao";
 
 const Coleta = (props) => {
 

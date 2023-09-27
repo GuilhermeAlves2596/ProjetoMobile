@@ -1,12 +1,12 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Tela1 from "./Tela1";
+import Home from "./Home";
 
 const DrawerNavigator = createDrawerNavigator()
 
 const Drawer = () => {
     return (
         <DrawerNavigator.Navigator>
-            <DrawerNavigator.Screen name="Tela1" component={Tela1} />
+            <DrawerNavigator.Screen name="Home" component={Home} />
         </DrawerNavigator.Navigator>
     )
 }

@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Legenda from "../src/components/Legenda";
+import Legenda from "../components/Legenda";
 
 const Relatorio = (props) => {
 
@@ -23,7 +23,7 @@ const Relatorio = (props) => {
 
       <View style={estilos.viewCorpo}>
         <View style={estilos.viewCard}>
-            <Image source={require('../assets/images/grafico.jpg')} style={estilos.imageGrafico} />
+            <Image source={require('../../assets/images/grafico.jpg')} style={estilos.imageGrafico} />
             <View>
                 <Legenda/>
             </View>
