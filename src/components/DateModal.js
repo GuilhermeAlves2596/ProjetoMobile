@@ -1,44 +1,35 @@
-import React, { useState } from "react";
-import { TouchableOpacity, View } from 'react-native';
+import React, {useState} from "react";
+import { View } from 'react-native';
+import InputText from './InputTextDate';
 import DatePicker from 'react-native-date-picker';
-import Modal from 'react-native-modal'; // Importe o Modal
-import InputText from './InputText';
 
 const DataModal = props => {
     const [data, setData] = useState(new Date());
-    const [isModalVisible, setModalVisible] = useState(false);
-
-    const toggleModal = () => {
-        setModalVisible(!isModalVisible);
-    };
-
-    const handleDateChange = (newDate) => {
-        setData(newDate);
-        toggleModal(); // Feche o modal após a seleção da data
-    };
+    const [open, setOpen] = useState(false);
 
     return (
-        <>
-            <View>
-                <TouchableOpacity onPress={toggleModal}>
-                    <InputText
-                        showSoftInputOnFocus={false}
-                        texto="Data"
-                        value={data.toDateString()} // Exibe a data selecionada
-                        onChangeText={() => {}}
-                    />
-                </TouchableOpacity>
-            </View>
-            <Modal isVisible={isModalVisible}>
-                <View>
-                    <DatePicker
-                        date={data}
-                        onDateChange={handleDateChange}
-                        mode="date"
-                    />
-                </View>
-            </Modal>
-        </>
+      <> 
+        <View>
+            <InputText
+                showSoftInputOnFocus = {false}
+                onPressIn = {() => setOpen(true)}
+                texto="Data"
+                value={data.toDateString()}
+            />
+        </View>
+        <DatePicker
+            modal
+            open={open}
+            date={data}
+            onConfirm={(data) => {
+                setData(data)
+                setOpen(false)
+            }}
+            onCancel={() => {
+                setOpen(false)
+            }}    
+        />
+      </>
     )
 }
 

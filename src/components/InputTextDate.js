@@ -7,11 +7,11 @@ const InputText = props => {
       <Text style={estilos.Text}>{props.texto}</Text>
       <TextInput
         style={estilos.TextInput}
-        value={props.value} // Corrigir a passagem do valor
+        value={props.value}
         showSoftInputOnFocus={props.showSoftInputOnFocus}
-        onChangeText={(text) => props.onChangeText(text)} // Corrigir a chamada do onChangeText
+        onChangeText={props.onChangeText}
         onPressIn={() => props.onPressIn()}
-        right={<TextInput.Icon style={estilos.TextInputIcon} size={35} icon={require('../../assets/images/grafico.jpg')} />}
+        right={<TextInput.Icon style={estilos.TextInputIcon} size={40} icon='calendar-month-outline' disabled/>}
       />
     </View>
   );
@@ -28,9 +28,6 @@ const estilos = StyleSheet.create({
     fontFamily: 'AveriaLibre-Regular',
     padding: 10,
     marginBottom: '1%',
-  },
-  TextInputIcon: {
-    
   },
   Text: {
     fontSize: 18,

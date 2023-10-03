@@ -1,43 +1,44 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
+import ButtonIcon from './ButtonIcon';
 
 const PopUp = () => {
+  const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const handleEnviar = () => {
-    // Coloque o código para lidar com a ação "Enviar" aqui
+  const enviar = () => {
     toggleModal();
+    navigation.navigate('Drawer');
   };
 
-  const handleCancelar = () => {
-    // Coloque o código para lidar com a ação "Cancelar" aqui
+  const cancelar = () => {
     toggleModal();
   };
 
   return (
     <View style={estilos.container}>
       <TouchableOpacity onPress={toggleModal}>
-        <Text>Abrir Popup</Text>
+          <ButtonIcon icone="trash-o" tamanho={20} texto="Apagar" cor="white"/>
       </TouchableOpacity>
-
       <Modal isVisible={isModalVisible}>
         <View style={estilos.modal}>
           <Text style={estilos.text}>Tem certeza de apagar essa pesquisa?</Text>
           <View style={estilos.buttonContainer}>
             <TouchableOpacity
               style={[estilos.button, { backgroundColor: '#FF8383' }]}
-              onPress={handleEnviar}
+              onPress={enviar}
             >
               <Text style={estilos.buttonText}>SIM</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[estilos.button, { backgroundColor: '#3F92C5' }]}
-              onPress={handleCancelar}
+              onPress={cancelar}
             >
               <Text style={estilos.buttonText}>CANCELAR</Text>
             </TouchableOpacity>

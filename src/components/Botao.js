@@ -2,14 +2,14 @@ import React from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 
 const Botao = props => {
-  const {altura, corFundo, tamanhoTexto, marginB} = props;
+  const {altura, largura, corFundo, tamanhoTexto, marginB} = props;
 
   return (
     <>
       <TouchableOpacity
         style={[
           estilos.TouchableOpacity,
-          {backgroundColor: corFundo, height: altura, marginBottom: marginB},
+          {backgroundColor: corFundo, height: altura, width: largura, marginBottom: marginB},
         ]}
         onPress={props.funcao}>
         <Text style={[estilos.textoBotao, {fontSize: tamanhoTexto}]}>

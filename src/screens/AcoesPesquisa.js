@@ -1,8 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Card from "../components/Card";
+import Header from "../components/Header";
 
 const AcoesPesquisa = (props) => {
+
+  const header = props.route.params.header;
 
   const goToColeta = () => {
     props.navigation.navigate("Coleta")
@@ -13,23 +15,13 @@ const AcoesPesquisa = (props) => {
   }
 
   const goToModificar = () => {
-    props.navigation.navigate("Drawer")
+    props.navigation.navigate("Modificar Pesquisa")
   }
 
 
   return (
     <View style={estilos.viewBody}>
-      <View style={estilos.viewHeader}>
-        <View>
-          <TouchableOpacity activeOpacity={0.6}>
-            <Icon name="arrow-left" size={45} color="#573FBA" />
-          </TouchableOpacity>
-        </View>
-        <View>
-          <Text style={estilos.textHeader}>Carnaval</Text>
-        </View>
-      </View>
-
+      <Header texto={header}></Header>
       <View style={estilos.viewCorpo}>
         <View style={estilos.viewCard}>
           <TouchableOpacity activeOpacity={0.6} onPress={goToModificar}>
@@ -58,15 +50,8 @@ const estilos = StyleSheet.create({
     backgroundColor: "#372775",
     flex: 1
   },
-  viewHeader: {
-    backgroundColor: "#2B1D62",
-    flex: 0.20,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingLeft: 10
-  },
   viewCorpo: {
-    flex: 0.80,
+    flex: 2,
     flexDirection: "column",
     justifyContent: "center"
   },

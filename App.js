@@ -17,18 +17,31 @@ const Stack = createStackNavigator();
 const App = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
-                <Stack.Screen name="AcoesPesquisa" component={AcoesPesquisa} />
-                <Stack.Screen name="Agradecimento" component={Agradecimento} />
-                <Stack.Screen name="Coleta" component={Coleta} />
-                <Stack.Screen name="Drawer" component={Drawer} />
-                <Stack.Screen name="Home" component={Home} />
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="ModificarPesquisa" component={ModificarPesquisa} />
-                <Stack.Screen name="NovaConta" component={NovaConta} />
-                <Stack.Screen name="Nova Pesquisa" component={NovaPesquisa} />
-                <Stack.Screen name="Recuperar Senha" component={RecuperarSenha} />
-                <Stack.Screen name="Relatorio" component={Relatorio} />
+
+
+            <Stack.Navigator
+            initialRouteName="Login"
+            screenOptions={{
+                    headerTintColor: '#FFFFFF',
+                    headerStyle: {backgroundColor: '#2B1D62'},
+                    headerTitleStyle: {
+                    fontFamily: 'AveriaLibre-Regular',
+                    color: '#2B1D62',
+                    fontSize: 26,
+                },
+                headerShown: false
+            }}>
+              <Stack.Screen name="Acoes Pesquisa" component={AcoesPesquisa} />
+              <Stack.Screen name="Agradecimento" component={Agradecimento} />
+              <Stack.Screen name="Coleta" component={Coleta} />
+              <Stack.Screen name="Home" component={Home}/>
+              <Stack.Screen name="Drawer" component={Drawer} options={{headerShown: false}}/>
+              <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
+              <Stack.Screen name="Modificar Pesquisa" component={ModificarPesquisa} />
+              <Stack.Screen name="Nova Conta" component={NovaConta} />
+              <Stack.Screen name="Nova Pesquisa" component={NovaPesquisa} />
+              <Stack.Screen name="Recuperação de Senha" component={RecuperarSenha} />
+              <Stack.Screen name="Relatorio" component={Relatorio} />
             </Stack.Navigator>
         </NavigationContainer>
     )

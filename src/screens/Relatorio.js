@@ -1,5 +1,5 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Image, StyleSheet, View } from "react-native";
+import Header from "../components/Header";
 import Legenda from "../components/Legenda";
 
 const Relatorio = (props) => {
@@ -10,17 +10,7 @@ const Relatorio = (props) => {
 
   return (
     <View style={estilos.viewBody}>
-      <View style={estilos.viewHeader}>
-        <View>
-        <TouchableOpacity activeOpacity={0.6} onPress={back}>
-          <Icon name="arrow-left" size={45} color="#573FBA" />
-        </TouchableOpacity>
-        </View>
-        <View>
-          <Text style={estilos.textHeader}>Relatório</Text>
-        </View>
-      </View>
-
+      <Header texto="Relatório"></Header>
       <View style={estilos.viewCorpo}>
         <View style={estilos.viewCard}>
             <Image source={require('../../assets/images/grafico.jpg')} style={estilos.imageGrafico} />
@@ -38,15 +28,8 @@ const estilos = StyleSheet.create({
     backgroundColor: "#372775",
     flex: 1
   },
-  viewHeader: {
-    backgroundColor: "#2B1D62",
-    flex: 0.20,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingLeft: 10
-  },
   viewCorpo:{
-    flex: 0.80,
+    flex: 2,
     flexDirection: "column",
     justifyContent: "center"
   },
