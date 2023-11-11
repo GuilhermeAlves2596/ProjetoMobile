@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View} from 'react-native';
 import Botao from '../components/Botao';
 import Header from '../components/Header';
 import InputText from '../components/InputText';
 import MensagemErro from '../components/MensagemErro';
+import {
+  sendPasswordResetEmail,
+  fetchSignInMethodsForEmail,
+} from 'firebase/auth';
+import {auth_mode} from '../firebase/config';
 
-const Login = props => {
+const RecuperarSenha = props => {
   const [txtEmail, setEmail] = useState('');
-  const [erroMsg, setErroMsg] = useState ('');
+  const [erroMsg, setErroMsg] = useState('');
 
   const voltarLogin = () => {
     props.navigation.navigate('Login');
   };
 
   const recuperar = () => {
-    if(verificarEmail()) {
-      setErroMsg(null);
-      voltarLogin();
+    setErroMsg(null);
+
+    if (verificarEmail()) {
+      sendPasswordResetEmail(auth_mode, txtEmail)
+        .then(() => {
+          voltarLogin();
+        })
+        .catch(error => {
+          setErroMsg('Erro ao enviar e-mail de recuperação');
+        });
     } else {
       setErroMsg('E-mail parece ser inválido. ');
       return false;
@@ -26,7 +38,7 @@ const Login = props => {
   const verificarEmail = () => {
     const regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return regEmail.test(txtEmail);
-  }
+  };
 
   return (
     <View style={styles.viewBody}>
@@ -40,7 +52,7 @@ const Login = props => {
             keyboardType="default"
           />
         </View>
-        <MensagemErro erroMsg={erroMsg} visible={erroMsg != null}/>
+        <MensagemErro erroMsg={erroMsg} visible={erroMsg !== ''} />
 
         <View style={styles.container_botoes}>
           <Botao
@@ -59,8 +71,8 @@ const Login = props => {
 
 const styles = StyleSheet.create({
   viewBody: {
-    backgroundColor: "#372775",
-    flex: 1
+    backgroundColor: '#372775',
+    flex: 1,
   },
   container: {
     flex: 0.7,
@@ -76,4 +88,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default RecuperarSenha;

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Botao from '../components/Botao';
 import InputText from '../components/InputText';
 import MensagemErro from '../components/MensagemErro';
-
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {auth_mode} from '../firebase/config';
 
 const Login = props => {
   const [email, setEmail] = useState('');
@@ -18,10 +19,21 @@ const Login = props => {
     props.navigation.navigate('Recuperação de Senha');
   };
 
+  const drawer = () => {
+    props.navigation.navigate('Drawer');
+  };
+
   const entrar = () => {
-    if(verificarEmail() && verificarSenha()) {
-      setErroMsg(null);
-      props.navigation.navigate("Drawer")
+    setErroMsg(null);
+
+    if (verificarEmail() && verificarSenha()) {
+      signInWithEmailAndPassword(auth_mode, email, senha)
+        .then(() => {
+          drawer();
+        })
+        .catch(error => {
+          setErroMsg('Erro ao autenticar usuário');
+        });
     } else {
       setErroMsg('E-mail ou senha inválidos.');
       return false;
@@ -31,14 +43,14 @@ const Login = props => {
   const verificarEmail = () => {
     const regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return regEmail.test(email);
-  }
+  };
 
   const verificarSenha = () => {
     if (senha.length < 1) {
       return false;
-    } 
+    }
     return true;
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -60,7 +72,7 @@ const Login = props => {
           keyboardType="default"
           campoSenha={true}
         />
-        <MensagemErro erroMsg={erroMsg} visible={erroMsg != null}/>
+        <MensagemErro erroMsg={erroMsg} visible={erroMsg != null} />
       </View>
 
       <View style={styles.container_botoes}>

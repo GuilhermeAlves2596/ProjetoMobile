@@ -13,6 +13,7 @@ const Login = props => {
   const [txtSenhaRepetida, setSenhaRepetida] = useState('');
   const [erroSenha, setErroSenha] = useState('');
   const [erroEmail, setErroEmail] = useState('');
+  const [erroMsg, setErroMsg] = useState('');
   const [erroSenhasDiferentes, setErroSenhasDiferentes] = useState('');
 
   const verificarEmail = () => {
@@ -45,16 +46,20 @@ const Login = props => {
       return true;
     }
   };
+  const voltarLogin = () => {
+    props.navigation.navigate('Login');
+  };
 
   const cadastrar = () => {
+    setErroMsg(null);
+
     if (verificarEmail() && verificarSenha() && verificarSenhasDiferentes()) {
       createUserWithEmailAndPassword(auth_mode, txtEmail, txtSenha)
-        .then(userCredential => {
-          console.log('Usuário criado: ' + userCredential);
-          props.navigation.navigate('Login');
+        .then(() => {
+          voltarLogin();
         })
         .catch(error => {
-          console.log('Erro ao criar usuário: ' + JSON.stringify(error));
+          setErroMsg('Erro ao cadastrar usuario');
         });
     } else {
       return;
