@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Botao from '../components/Botao';
 import InputText from '../components/InputText';
 import MensagemErro from '../components/MensagemErro';
-import {signInWithEmailAndPassword} from 'firebase/auth';
-import {auth_mode} from '../firebase/config';
+import { auth_mode } from '../firebase/config';
 
 const Login = props => {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [email, setEmail] = useState('guilhermeand21@gmail.com');
+  const [senha, setSenha] = useState('Alvess2596');
   const [erroMsg, setErroMsg] = useState('');
   const criarConta = () => {
     props.navigation.navigate('Nova Conta');

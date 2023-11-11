@@ -1,35 +1,37 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { View } from 'react-native';
-import InputText from './InputTextDate';
 import DatePicker from 'react-native-date-picker';
+import InputText from './InputTextDate';
 
 const DataModal = props => {
-    const [data, setData] = useState(new Date());
+    const [data, setData] = useState(props.selectedDate || new Date());
     const [open, setOpen] = useState(false);
 
+    const handleDateSelect = (selectedDate) => {
+        setData(selectedDate);
+        setOpen(false);
+        // Passa a data selecionada de volta para a página principal
+        props.onDateSelect(selectedDate);
+    }
+
     return (
-      <> 
-        <View>
-            <InputText
-                showSoftInputOnFocus = {false}
-                onPressIn = {() => setOpen(true)}
-                texto="Data"
-                value={data.toDateString()}
+        <>
+            <View>
+                <InputText
+                    showSoftInputOnFocus={false}
+                    onPressIn={() => setOpen(true)}
+                    texto="Data"
+                    value={data.toDateString()}
+                />
+            </View>
+            <DatePicker
+                modal
+                open={open}
+                date={data}
+                onConfirm={(selectedDate) => handleDateSelect(selectedDate)}
+                onCancel={() => setOpen(false)}
             />
-        </View>
-        <DatePicker
-            modal
-            open={open}
-            date={data}
-            onConfirm={(data) => {
-                setData(data)
-                setOpen(false)
-            }}
-            onCancel={() => {
-                setOpen(false)
-            }}    
-        />
-      </>
+        </>
     )
 }
 

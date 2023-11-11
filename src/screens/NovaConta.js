@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import Botao from '../components/Botao';
 import Header from '../components/Header';
 import InputText from '../components/InputText';
 import MensagemErro from '../components/MensagemErro';
-import {createUserWithEmailAndPassword} from 'firebase/auth';
-import {auth_mode} from '../firebase/config';
+import { auth_mode } from '../firebase/config';
 
 const Login = props => {
   const [txtEmail, setEmail] = useState('');
