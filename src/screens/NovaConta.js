@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View} from 'react-native';
 import Botao from '../components/Botao';
 import Header from '../components/Header';
 import InputText from '../components/InputText';
 import MensagemErro from '../components/MensagemErro';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {auth_mode} from '../firebase/config';
 
 const Login = props => {
   const [txtEmail, setEmail] = useState('');
@@ -16,37 +18,44 @@ const Login = props => {
   const verificarEmail = () => {
     const regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!regEmail.test(txtEmail)) {
-      setErroEmail("E-mail inválido. ");
+      setErroEmail('E-mail inválido. ');
       return false;
     } else {
       setErroEmail(null);
-    }; 
+    }
     return regEmail.test(txtEmail);
-  }
+  };
 
   const verificarSenha = () => {
-    if(txtSenha.length < 1) {
-      setErroSenha("Senha inválida. "); 
+    if (txtSenha.length < 1) {
+      setErroSenha('Senha inválida. ');
       return false;
     } else {
       setErroSenha(null);
       return true;
     }
-  }
+  };
 
   const verificarSenhasDiferentes = () => {
-    if(txtSenha !== txtSenhaRepetida) {
-      setErroSenhasDiferentes("O campo repetir senha difere da senha. ");
+    if (txtSenha !== txtSenhaRepetida) {
+      setErroSenhasDiferentes('O campo repetir senha difere da senha. ');
       return false;
     } else {
       setErroSenhasDiferentes(null);
       return true;
     }
-  }
-  
+  };
+
   const cadastrar = () => {
-    if(verificarEmail() && verificarSenha() && verificarSenhasDiferentes()) {
-      props.navigation.navigate("Login");
+    if (verificarEmail() && verificarSenha() && verificarSenhasDiferentes()) {
+      createUserWithEmailAndPassword(auth_mode, txtEmail, txtSenha)
+        .then(userCredential => {
+          console.log('Usuário criado: ' + userCredential);
+          props.navigation.navigate('Login');
+        })
+        .catch(error => {
+          console.log('Erro ao criar usuário: ' + JSON.stringify(error));
+        });
     } else {
       return;
     }
@@ -54,7 +63,7 @@ const Login = props => {
 
   return (
     <View style={styles.viewBody}>
-    <Header texto="Nova Conta"></Header>
+      <Header texto="Nova Conta"></Header>
       <View style={styles.container}>
         <View style={styles.inputs}>
           <InputText
@@ -79,7 +88,10 @@ const Login = props => {
             keyboardType="default"
             campoSenha={true}
           />
-          <MensagemErro erroMsg={erroSenhasDiferentes} visible={erroSenhasDiferentes != null} />
+          <MensagemErro
+            erroMsg={erroSenhasDiferentes}
+            visible={erroSenhasDiferentes != null}
+          />
         </View>
 
         <View style={styles.container_botoes}>
@@ -99,8 +111,8 @@ const Login = props => {
 
 const styles = StyleSheet.create({
   viewBody: {
-    backgroundColor: "#372775",
-    flex: 1
+    backgroundColor: '#372775',
+    flex: 1,
   },
   container: {
     flex: 0.7,
