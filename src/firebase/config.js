@@ -2,6 +2,7 @@ import { getAuth } from 'firebase/auth';
 
 
 import { initializeApp } from 'firebase/app';
+import { getFirestore } from "firebase/firestore";
 
 
 const firebaseConfig = {
@@ -14,8 +15,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 const auth_mode = getAuth(app);
 
-export { auth_mode };
+export { auth_mode, db };
 

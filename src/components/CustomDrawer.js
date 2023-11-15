@@ -2,14 +2,18 @@ import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navi
 import { StyleSheet, Text, View } from 'react-native';
 import IconMCM from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { useSelector } from 'react-redux';
 
 import Separador from './Hr';
 
 const CustomDrawer = props => {
+
+    const email = useSelector((state) => state.login.email)
+
     return (
         <DrawerContentScrollView {...props} contentContainerStyle={estilos.drawerContainer}>
             <View>
-                <Text style={estilos.titulo}>usuario@dominio.com</Text>
+                <Text style={estilos.titulo}>{email}</Text>
                 <Separador></Separador>
                 <DrawerItemList {...props} />
                 <DrawerItem
@@ -44,7 +48,7 @@ const estilos = StyleSheet.create({
         fontFamily: 'AveriaLibre-Regular',
         color: '#FFFFFF',
         textAlign: 'center',
-        fontSize: 25
+        fontSize: 20
     },
     texto: {
         fontFamily: 'AveriaLibre-Regular',

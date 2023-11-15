@@ -1,18 +1,25 @@
 import { useNavigation } from '@react-navigation/native';
+import { deleteDoc, doc } from "firebase/firestore";
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
+import { useSelector } from 'react-redux';
+import { db } from "../firebase/config";
 import ButtonIcon from './ButtonIcon';
 
 const PopUp = () => {
   const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
+  const email = useSelector((state) => state.login.email)
+  const id = useSelector((state) => state.pesquisa.id)
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const enviar = () => {
+  const excluir = async () => {
+    await deleteDoc(doc(db, email, id))
+    console.log("Pesquisa excluida com sucesso: " + id)
     toggleModal();
     navigation.navigate('Drawer');
   };
@@ -24,7 +31,7 @@ const PopUp = () => {
   return (
     <View style={estilos.container}>
       <TouchableOpacity onPress={toggleModal}>
-          <ButtonIcon icone="trash-o" tamanho={20} texto="Apagar" cor="white"/>
+        <ButtonIcon icone="trash-o" tamanho={20} texto="Apagar" cor="white" />
       </TouchableOpacity>
       <Modal isVisible={isModalVisible}>
         <View style={estilos.modal}>
@@ -32,7 +39,7 @@ const PopUp = () => {
           <View style={estilos.buttonContainer}>
             <TouchableOpacity
               style={[estilos.button, { backgroundColor: '#FF8383' }]}
-              onPress={enviar}
+              onPress={excluir}
             >
               <Text style={estilos.buttonText}>SIM</Text>
             </TouchableOpacity>

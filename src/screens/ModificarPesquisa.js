@@ -1,16 +1,33 @@
+import { doc, updateDoc } from "firebase/firestore";
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import Botao from '../components/Botao';
 import DataModal from '../components/DateModal';
 import Header from '../components/Header';
 import ImgInput from '../components/ImgInput';
 import InputText from '../components/InputText';
 import PopUp from '../components/PopUp';
+import { db } from "../firebase/config";
 
 const ModificarPesquisa = props => {
-  const [txtNome, setNome] = useState('');
 
-  const cadastrar = () => {
+  const dispatch = useDispatch();
+  
+  const name = useSelector((state) => state.pesquisa.name)
+  const email = useSelector((state) => state.login.email)
+  const id = useSelector((state) => state.pesquisa.id)
+
+  const [txtNome, setNome] = useState(name);
+  const [dataSelecionada, setDataSelecionada] = useState(new Date());
+
+  const modificar = async ()  => {
+    
+    await updateDoc(doc(db, email, id), {
+      name: txtNome,
+      data: dataSelecionada.toDateString()
+    });
+    
     props.navigation.navigate('Home');
   };
 
@@ -25,7 +42,10 @@ const ModificarPesquisa = props => {
             onChangeText={setNome}
             keyboardType="default"
           />
-          <DataModal></DataModal>
+          <DataModal
+            selectedDate={dataSelecionada}
+            onDateSelect={setDataSelecionada}
+          />
         </View>
         <ImgInput icon="party-popper" color="pink" />
         <View style={styles.container_botoes}>
@@ -36,7 +56,7 @@ const ModificarPesquisa = props => {
             corFundo="#37BD6D"
             marginB="2%"
             tamanhoTexto={20}
-            funcao={cadastrar}
+            funcao={modificar}
           />
         </View>
         

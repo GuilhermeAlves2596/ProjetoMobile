@@ -1,5 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 import AcoesPesquisa from "./src/screens/AcoesPesquisa";
 import Agradecimento from "./src/screens/Agradecimento";
 import Coleta from "./src/screens/Coleta";
@@ -16,9 +18,9 @@ const Stack = createStackNavigator();
 
 const App = () => {
     return (
+
+        <Provider store={store}>
         <NavigationContainer>
-
-
             <Stack.Navigator
             initialRouteName="Login"
             screenOptions={{
@@ -44,6 +46,7 @@ const App = () => {
               <Stack.Screen name="Relatorio" component={Relatorio} />
             </Stack.Navigator>
         </NavigationContainer>
+        </Provider>
     )
 }
 

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
+import { useSelector } from 'react-redux';
 import InputText from './InputTextDate';
 
 const DataModal = props => {
-    const [data, setData] = useState(props.selectedDate || new Date());
+    const date = useSelector((state) => state.pesquisa.data)
+    const dateFormat = new Date(date)
+
+    const [data, setData] = useState(dateFormat == '' || new Date());
     const [open, setOpen] = useState(false);
 
     const handleDateSelect = (selectedDate) => {

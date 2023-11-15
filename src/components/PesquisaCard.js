@@ -1,23 +1,19 @@
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const PesquisaCard = (props) => {
-    const texto = props.texto
-    const textoData = props.textoData
-    const icone = props.icone
-    const color = props.color
-    const nome = props.nome
 
+    const { name, data, onPress, id } = props;
+    
     return (
         <View style={estilos.viewCard}>
-            <TouchableOpacity style={estilos.view} onPress={() => props.onPress(nome)}>
+            <TouchableOpacity style={estilos.view} onPress={() => onPress({ name, data, id })}>
                 <View>
-                    <Icon style={estilos.iconCard} name={icone} size={48} color={color} />
+                    {/* <Icon style={estilos.iconCard} name={icone} size={48} color={color} /> */}
                 </View>
                 <View>
-                    <Text style={estilos.textCard}>{texto}</Text>
-                    <Text style={estilos.dataText}>{textoData}</Text>
+                    <Text style={estilos.textCard}>{name}</Text>
+                    <Text style={estilos.dataText}>{data}</Text>
                 </View>
             </TouchableOpacity>
         </View>
@@ -48,7 +44,7 @@ const estilos = StyleSheet.create({
     },
     view: {
         alignItems: "center",
-        justifyContent: "flex-start"
+        justifyContent: "flex-start",
     }
 })
 

@@ -1,10 +1,11 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { useSelector } from 'react-redux';
 import Card from "../components/Card";
 import Header from "../components/Header";
 
 const AcoesPesquisa = (props) => {
 
-  const header = props.route.params.header;
+  const name = useSelector((state) => state.pesquisa.name)
 
   const goToColeta = () => {
     props.navigation.navigate("Coleta")
@@ -21,7 +22,7 @@ const AcoesPesquisa = (props) => {
 
   return (
     <View style={estilos.viewBody}>
-      <Header texto={header}></Header>
+      <Header texto={name}></Header>
       <View style={estilos.viewCorpo}>
         <View style={estilos.viewCard}>
           <TouchableOpacity activeOpacity={0.6} onPress={goToModificar}>

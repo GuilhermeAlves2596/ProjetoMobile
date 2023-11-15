@@ -2,6 +2,8 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import { useDispatch } from 'react-redux/es/exports';
+import { reducerSetLogin } from '../../redux/loginSlice';
 import Botao from '../components/Botao';
 import InputText from '../components/InputText';
 import MensagemErro from '../components/MensagemErro';
@@ -11,6 +13,9 @@ const Login = props => {
   const [email, setEmail] = useState('guilhermeand21@gmail.com');
   const [senha, setSenha] = useState('Alvess2596');
   const [erroMsg, setErroMsg] = useState('');
+
+  const dispatch = useDispatch()
+
   const criarConta = () => {
     props.navigation.navigate('Nova Conta');
   };
@@ -20,6 +25,7 @@ const Login = props => {
   };
 
   const drawer = () => {
+    dispatch(reducerSetLogin({email: email}))
     props.navigation.navigate('Drawer');
   };
 
