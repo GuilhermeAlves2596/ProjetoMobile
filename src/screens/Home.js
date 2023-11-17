@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     marginHorizontal: 25,
-    marginRight: -60,
+    marginRight: -80,
   },
 });
 
