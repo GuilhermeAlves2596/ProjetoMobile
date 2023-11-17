@@ -1,34 +1,68 @@
-import { doc, updateDoc } from "firebase/firestore";
-import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import {doc, updateDoc} from 'firebase/firestore';
+import React, {useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import Botao from '../components/Botao';
 import DataModal from '../components/DateModal';
 import Header from '../components/Header';
 import ImgInput from '../components/ImgInput';
 import InputText from '../components/InputText';
 import PopUp from '../components/PopUp';
-import { db } from "../firebase/config";
+import {db, storage} from '../firebase/config';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
+import MensagemErro from '../components/MensagemErro';
 
 const ModificarPesquisa = props => {
-
   const dispatch = useDispatch();
-  
-  const name = useSelector((state) => state.pesquisa.name)
-  const email = useSelector((state) => state.login.email)
-  const id = useSelector((state) => state.pesquisa.id)
+
+  const name = useSelector(state => state.pesquisa.name);
+  const email = useSelector(state => state.login.email);
+  const id = useSelector(state => state.pesquisa.id);
 
   const [txtNome, setNome] = useState(name);
   const [dataSelecionada, setDataSelecionada] = useState(new Date());
+  const [urlFoto, setUrlFoto] = useState('');
 
-  const modificar = async ()  => {
-    
-    await updateDoc(doc(db, email, id), {
-      name: txtNome,
-      data: dataSelecionada.toDateString()
-    });
-    
-    props.navigation.navigate('Home');
+  const [erroMsg, setErroMsg] = useState('');
+
+  const atualizarImagem = async () => {
+    setErroMsg(null);
+    try {
+      const response = await launchImageLibrary({});
+      if (response.assets && response.assets.length > 0) {
+        const newImage = response.assets[0].uri;
+
+        const nomeImagem = `imagem_${id}.jpeg`;
+        const imageRef = ref(storage, nomeImagem);
+        const file = await fetch(newImage);
+        const blob = await file.blob();
+
+        await uploadBytes(imageRef, blob, {contentType: 'image/jpeg'});
+        const imageUrl = await getDownloadURL(imageRef);
+
+        await updateDoc(doc(db, email, id), {
+          id: txtNome,
+          data: dataSelecionada.toDateString(),
+          foto: imageUrl,
+        });
+
+        setUrlFoto(imageUrl);
+      }
+    } catch (error) {
+      setErroMsg('Erro ao atualizar a imagem:');
+    }
+  };
+  const modificar = async () => {
+    try {
+      await updateDoc(doc(db, email, id), {
+        name: txtNome,
+        data: dataSelecionada.toDateString(),
+      });
+      props.navigation.navigate('Home');
+    } catch (error) {
+      setErroMsg('Erro ao modificar a pesquisa');
+    }
   };
 
   return (
@@ -47,7 +81,9 @@ const ModificarPesquisa = props => {
             onDateSelect={setDataSelecionada}
           />
         </View>
-        <ImgInput icon="party-popper" color="pink" />
+
+        <ImgInput funcao={atualizarImagem} imgInput={urlFoto} />
+        <MensagemErro erroMsg={erroMsg} visible={erroMsg != null} />
         <View style={styles.container_botoes}>
           <Botao
             texto="SALVAR"
@@ -59,7 +95,7 @@ const ModificarPesquisa = props => {
             funcao={modificar}
           />
         </View>
-        
+
         <View style={styles.botaoApagar}>
           <PopUp></PopUp>
         </View>
@@ -70,8 +106,8 @@ const ModificarPesquisa = props => {
 
 const styles = StyleSheet.create({
   viewBody: {
-    backgroundColor: "#372775",
-    flex: 1
+    backgroundColor: '#372775',
+    flex: 1,
   },
   container: {
     flex: 0.7,
@@ -84,7 +120,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 3,
     padding: 5,
-    margin: '1%'
+    margin: '1%',
   },
   container_botoes: {
     flexDirection: 'column',
