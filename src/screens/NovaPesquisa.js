@@ -1,15 +1,15 @@
-import {doc, setDoc} from 'firebase/firestore';
-import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import { doc, setDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { useDispatch, useSelector } from 'react-redux';
 import Botao from '../components/Botao';
 import DataModal from '../components/DateModal';
 import Header from '../components/Header';
 import ImgInput from '../components/ImgInput';
 import InputText from '../components/InputText';
-import {db, storage} from '../firebase/config';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {uploadBytes, ref, getDownloadURL} from 'firebase/storage';
+import { db, storage } from '../firebase/config';
 
 const NovaPesquisa = props => {
   const [txtNome, setNome] = useState('');
@@ -27,6 +27,12 @@ const NovaPesquisa = props => {
       const file = await fetch(urlFoto);
       const blob = await file.blob();
 
+      const pessimo = 0;
+      const ruim = 0;
+      const neutro = 0;
+      const bom = 0;
+      const excelente = 0;
+
       await uploadBytes(imageRef, blob, {contentType: 'image/jpeg'});
       const imageUrl = await getDownloadURL(imageRef);
 
@@ -35,6 +41,11 @@ const NovaPesquisa = props => {
         name: txtNome,
         data: dataSelecionada.toDateString(),
         foto: imageUrl,
+        pessimo: pessimo,
+        ruim: ruim,
+        neutro: neutro,
+        bom: bom,
+        excelente: excelente
       });
 
       props.navigation.navigate('Drawer');

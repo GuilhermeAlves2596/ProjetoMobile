@@ -1,12 +1,12 @@
-import {collection, onSnapshot, query} from 'firebase/firestore';
-import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, View, FlatList} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {reducerSetId, reducerSetPesquisa} from '../../redux/pesquisaSlice';
+import { collection, onSnapshot, query } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { reducerSetId, reducerSetPesquisa } from '../../redux/pesquisaSlice';
 import BarraPesquisa from '../components/BarraPesquisa';
 import Botao from '../components/Botao';
 import PesquisaCard from '../components/PesquisaCard';
-import {db} from '../firebase/config';
+import { db } from '../firebase/config';
 
 const Home = props => {
   const email = useSelector(state => state.login.email);
@@ -50,7 +50,7 @@ const Home = props => {
             keyExtractor={item => item.id}
             contentContainerStyle={{
               ...styles.flatlist.content,
-              width: `${100 * listaPesquisas.length}%`,
+              width: `${45 * listaPesquisas.length}%`,
             }}
             renderItem={({item, index}) => (
               <View style={[styles.cardContainer, props.style]}>
@@ -59,6 +59,11 @@ const Home = props => {
                   data={item.data}
                   urlFoto={item.foto}
                   id={item.id}
+                  pessimo={item.pessimo}
+                  ruim={item.ruim}
+                  neutro={item.neutro}
+                  bom={item.bom}
+                  excelente={item.excelente}
                   onPress={goToAcoesPesquisa}
                 />
               </View>

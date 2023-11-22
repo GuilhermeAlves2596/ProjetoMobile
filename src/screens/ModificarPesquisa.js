@@ -1,17 +1,17 @@
-import {doc, updateDoc} from 'firebase/firestore';
-import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import { doc, updateDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { useDispatch, useSelector } from 'react-redux';
 import Botao from '../components/Botao';
 import DataModal from '../components/DateModal';
 import Header from '../components/Header';
 import ImgInput from '../components/ImgInput';
 import InputText from '../components/InputText';
-import PopUp from '../components/PopUp';
-import {db, storage} from '../firebase/config';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import MensagemErro from '../components/MensagemErro';
+import PopUp from '../components/PopUp';
+import { db, storage } from '../firebase/config';
 
 const ModificarPesquisa = props => {
   const dispatch = useDispatch();

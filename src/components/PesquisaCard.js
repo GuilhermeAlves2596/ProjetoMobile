@@ -1,13 +1,13 @@
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const PesquisaCard = props => {
-  const {name, data, onPress, id, urlFoto} = props;
+  const {name, data, onPress, id, urlFoto, pessimo, ruim, neutro, bom, excelente} = props;
 
   return (
     <View style={estilos.viewCard}>
       <TouchableOpacity
         style={estilos.view}
-        onPress={() => onPress({name, data, id, urlFoto})}>
+        onPress={() => onPress({name, data, id, urlFoto, pessimo, ruim, neutro, bom, excelente})}>
         <View>
           {/* <Icon style={estilos.iconCard} name={icone} size={48} color={color} /> */}
           <Image source={{uri: urlFoto}} style={estilos.imagemCard} />
