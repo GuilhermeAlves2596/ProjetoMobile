@@ -2,6 +2,8 @@ import { Image, StyleSheet, View } from "react-native";
 import Header from "../components/Header";
 import Legenda from "../components/Legenda";
 
+import Grafico from "../components/Grafico";
+
 const Relatorio = (props) => {
 
   const back = () => {
@@ -13,7 +15,7 @@ const Relatorio = (props) => {
       <Header texto="Relatório"></Header>
       <View style={estilos.viewCorpo}>
         <View style={estilos.viewCard}>
-            <Image source={require('../../assets/images/grafico.jpg')} style={estilos.imageGrafico} />
+          <Grafico style={estilos.imageGrafico} />
             <View>
                 <Legenda/>
             </View>
@@ -44,11 +46,6 @@ const estilos = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly"
   },
-  imageGrafico:{
-    height: 270,
-    width: 270
-  }
-
 })
 
 export default Relatorio;

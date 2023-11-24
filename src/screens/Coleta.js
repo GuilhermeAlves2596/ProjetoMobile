@@ -43,7 +43,7 @@ const Coleta = (props) => {
       props.navigation.navigate("Agradecimento");
 
       setTimeout(() => {
-        props.navigation.goBack();
+        props.navigation.navigate("Drawer");
       }, 3000);
     }
 

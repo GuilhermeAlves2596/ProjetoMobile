@@ -2,7 +2,7 @@ import { collection, onSnapshot, query } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { reducerSetId, reducerSetPesquisa } from '../../redux/pesquisaSlice';
+import { reducerSetAvaliacoes, reducerSetId, reducerSetPesquisa } from '../../redux/pesquisaSlice';
 import BarraPesquisa from '../components/BarraPesquisa';
 import Botao from '../components/Botao';
 import PesquisaCard from '../components/PesquisaCard';
@@ -34,8 +34,10 @@ const Home = props => {
   };
   const goToAcoesPesquisa = propsCard => {
     const {name, data, id} = propsCard;
+    const {pessimo, ruim, neutro, bom, excelente} = propsCard;
     dispatch(reducerSetPesquisa({name: name, data: data}));
     dispatch(reducerSetId({id: id}));
+    dispatch(reducerSetAvaliacoes({pessimo: pessimo, ruim: ruim, neutro: neutro, bom: bom, excelente: excelente}))
 
     props.navigation.navigate('Acoes Pesquisa');
   };
