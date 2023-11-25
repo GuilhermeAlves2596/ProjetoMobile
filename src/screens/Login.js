@@ -10,8 +10,8 @@ import MensagemErro from '../components/MensagemErro';
 import { auth_mode } from '../firebase/config';
 
 const Login = props => {
-  const [email, setEmail] = useState('guilhermeand21@gmail.com');
-  const [senha, setSenha] = useState('Alvess2596');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
   const [erroMsg, setErroMsg] = useState('');
 
   const dispatch = useDispatch()

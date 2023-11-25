@@ -8,9 +8,10 @@ const Coleta = (props) => {
 
   const email = useSelector(state => state.login.email);
   const id = useSelector(state => state.pesquisa.id);
+  const name = useSelector((state) => state.pesquisa.name)
 
   const back = () => {
-    props.navigation.goBack()
+    props.navigation.navigate("Drawer")
   }
 
   const goToAgradecimento = async (satisfacao) => {
@@ -38,12 +39,10 @@ const Coleta = (props) => {
         excelente: increment(1)
       });
     }
-
-
       props.navigation.navigate("Agradecimento");
 
       setTimeout(() => {
-        props.navigation.navigate("Drawer");
+        props.navigation.navigate("Coleta");
       }, 3000);
     }
 
@@ -55,7 +54,7 @@ const Coleta = (props) => {
 
         <View style={estilos.content}>
           <View style={estilos.viewCorpo}>
-            <Text style={estilos.text}>O que você achou do Carnaval 2024?</Text>
+            <Text style={estilos.text}>O que você achou da {name}?</Text>
           </View>
         </View>
 

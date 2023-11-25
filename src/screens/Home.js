@@ -52,7 +52,7 @@ const Home = props => {
             keyExtractor={item => item.id}
             contentContainerStyle={{
               ...styles.flatlist.content,
-              width: `${45 * listaPesquisas.length}%`,
+              width: `${100 * listaPesquisas.length}%`,
             }}
             renderItem={({item, index}) => (
               <View style={[styles.cardContainer, props.style]}>
